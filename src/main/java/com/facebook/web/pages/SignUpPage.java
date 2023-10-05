@@ -57,6 +57,15 @@ public class SignUpPage extends FacebookWebbase {
     @FindBy(xpath = "//span/label[contains(text(),'Custom')]")
     WebElement select_Custom;
 
+    @FindBy(xpath = "//select[@aria-label='Select your pronoun']")
+    WebElement selct_pronoun;
+
+    @FindBy(xpath = "//select[@aria-label='Select your pronoun']/option")
+    List<WebElement> selct_Your_pronoun;
+
+    @FindBy(xpath = "//select[@aria-label='Select your pronoun']/option[contains(text(),'Select your pronoun')]")
+    WebElement Select_Your_pronoun;
+
     // initialize the page object
     public SignUpPage() {
 
@@ -133,7 +142,33 @@ public class SignUpPage extends FacebookWebbase {
         Random randomGender = new Random();
 
         int randomGenderIndex = randomGender.nextInt(gender.length);
-        gender[randomGenderIndex].click();
 
+        if (gender[randomGenderIndex] == select_Female) {
+
+            gender[randomGenderIndex].click();
+
+        } else if (gender[randomGenderIndex] == select_Male) {
+
+            gender[randomGenderIndex].click();
+
+        } else {
+
+            gender[randomGenderIndex].click();
+
+            Select pronouns = new Select(selct_pronoun);
+
+            Random randomPronouns = new Random();
+            int randomPronounsIndex = randomPronouns.nextInt(selct_Your_pronoun.size());
+
+            // select random pronoun
+            if (selct_Your_pronoun == Select_Your_pronoun) {
+
+                pronouns.deselectByIndex(randomPronounsIndex);
+
+            } else {
+
+                pronouns.selectByIndex(randomPronounsIndex);
+            }
+        }
     }
 }
